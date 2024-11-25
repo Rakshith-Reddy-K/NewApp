@@ -10,20 +10,29 @@ export const UserStoreModel = types
   .model("UserStore")
   .props({
     users: types.array(UserModel),
+    totalFeePaid: types.optional(types.number, 0),
   })
   .actions(withSetPropAction)
   .views((store) => ({
     get userList() {
       console.log(store.users)
-      return store.users
+      return store.users.filter((user) => user.age > 0)
+    },
+    get totalFee() {
+      return store.totalFeePaid
     },
   })) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((store) => ({
     async getUsers() {
       const response = await api.getUsers()
       console.log(response)
+      let feePaid = 0
       if (response.kind === "ok") {
         store.setProp("users", response.users)
+        response.users.forEach((user) => {
+          feePaid += user.fee
+        })
+        store.setProp("totalFeePaid", feePaid)
       } else {
         console.error(`Error fetching users: ${JSON.stringify(response)}`)
       }
@@ -33,4 +42,3 @@ export const UserStoreModel = types
 export interface UserStore extends Instance<typeof UserStoreModel> {}
 export interface UserStoreSnapshotOut extends SnapshotOut<typeof UserStoreModel> {}
 export interface UserStoreSnapshotIn extends SnapshotIn<typeof UserStoreModel> {}
-export const createUserStoreDefaultModel = () => types.optional(UserStoreModel, {})

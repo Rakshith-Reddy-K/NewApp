@@ -10,6 +10,10 @@ const en = {
     readyForLaunch: "Your app, almost ready for launch!",
     exciting: "(ohh, this is exciting!)",
   },
+  mainPage: {
+    heading: "Main Page",
+    feePaid: "Total Fee Paid: ",
+  },
   errorScreen: {
     title: "Something went wrong!",
     friendlySubtitle:

@@ -29,6 +29,7 @@ import { ComponentProps } from "react"
 export type AppStackParamList = {
   Welcome: undefined
   // 🔥 Your screens go here
+  MainPage: undefined
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
@@ -61,8 +62,9 @@ const AppStack = observer(function AppStack() {
         },
       }}
     >
-      <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
+      {/* <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} /> */}
       {/** 🔥 Your screens go here */}
+      <Stack.Screen name="MainPage" component={Screens.MainPageScreen} />
       {/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
   )
