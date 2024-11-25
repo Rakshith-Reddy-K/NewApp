@@ -24,11 +24,13 @@ export const UserStoreModel = types
   })) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((store) => ({
     async getUsers() {
+      // Get users from external api
       const response = await api.getUsers()
       console.log(response)
       let feePaid = 0
       if (response.kind === "ok") {
         store.setProp("users", response.users)
+        // Add the fee for each user to populate totalFeePaid
         response.users.forEach((user) => {
           feePaid += user.fee
         })

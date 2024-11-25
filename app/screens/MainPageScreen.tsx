@@ -50,7 +50,9 @@ export const MainPageScreen: FC<MainPageScreenProps> = observer(function MainPag
         onPress={() => navigation.push("SecondPage")}
       />
       <Text preset="default" tx="mainPage:feePaid" />
+      {/* Display total fee */}
       <Text preset="default">{userStore.totalFee}</Text>
+      {/* Display list of users */}
       <ListView<User>
         contentContainerStyle={themed([$listContentContainer])}
         estimatedItemSize={400}
@@ -62,6 +64,7 @@ export const MainPageScreen: FC<MainPageScreenProps> = observer(function MainPag
             heading={item.name}
             content={item.name + " " + item.lastname + "  Age: " + item.age}
             style={
+              // Apply styles according to the age
               item.age < 30
                 ? themed($youngUser)
                 : item.age < 50

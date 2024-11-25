@@ -22,6 +22,7 @@ export const SecondPageScreen: FC<SecondPageScreenProps> = observer(
     const { themed } = useAppTheme()
     const [buttonText, setButtonText] = useState("Click to start a promise")
     const [timer, setTimer] = useState(100)
+    // Return a promise which starts an interval of 1 second and runs 3 times.
     const promiseWithInterval = () => {
       return new Promise((resolve) => {
         let count = 0
@@ -30,17 +31,19 @@ export const SecondPageScreen: FC<SecondPageScreenProps> = observer(
           if (count === 3) {
             clearInterval(intervalId)
             setButtonText("Finished")
+            // only resolve after execting 3 times i.e count === 3
             resolve("Interval")
           }
         }, 1000)
       })
     }
-
+    // A setTimeout function to decrement the timer every second.
     const timerDecrement = () => {
       setTimeout(() => {
         setTimer((prevCount) => prevCount - 1)
       }, 1000)
     }
+    // Combining the setTimeout with useEffect gives the feel of a timer.
     useEffect(() => {
       timerDecrement()
     }, [timer])
