@@ -30,6 +30,7 @@ export type AppStackParamList = {
   Welcome: undefined
   // 🔥 Your screens go here
   MainPage: undefined
+  SecondPage: undefined
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
@@ -65,6 +66,7 @@ const AppStack = observer(function AppStack() {
       {/* <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} /> */}
       {/** 🔥 Your screens go here */}
       <Stack.Screen name="MainPage" component={Screens.MainPageScreen} />
+      <Stack.Screen name="SecondPage" component={Screens.SecondPageScreen} />
       {/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
   )

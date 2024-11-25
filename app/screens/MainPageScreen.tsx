@@ -8,17 +8,19 @@ import { useAppTheme } from "@/utils/useAppTheme"
 import { ThemedStyle } from "@/theme"
 import { delay } from "@/utils/delay"
 import { ContentStyle } from "@shopify/flash-list"
+
+import { isRTL } from "@/i18n"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "@/models"
 
 interface MainPageScreenProps extends AppStackScreenProps<"MainPage"> {}
 
-export const MainPageScreen: FC<MainPageScreenProps> = observer(function MainPageScreen() {
+export const MainPageScreen: FC<MainPageScreenProps> = observer(function MainPageScreen(_props) {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const { navigation } = _props
   const { userStore } = useStores()
   const { themed } = useAppTheme()
 
@@ -42,7 +44,11 @@ export const MainPageScreen: FC<MainPageScreenProps> = observer(function MainPag
 
   return (
     <Screen style={$root} preset="scroll" safeAreaEdges={["top", "left"]}>
-      <Text preset="heading" style={themed($welcomeHeading)} tx="mainPage:heading" />
+      <Text
+        style={themed($linkToSecondPage)}
+        text="Go to second page"
+        onPress={() => navigation.push("SecondPage")}
+      />
       <Text preset="default" tx="mainPage:feePaid" />
       <Text preset="default">{userStore.totalFee}</Text>
       <ListView<User>
@@ -54,7 +60,7 @@ export const MainPageScreen: FC<MainPageScreenProps> = observer(function MainPag
         renderItem={({ item }) => (
           <Card
             heading={item.name}
-            content={item.name + " " + item.lastname}
+            content={item.name + " " + item.lastname + "  Age: " + item.age}
             style={
               item.age < 30
                 ? themed($youngUser)
@@ -91,6 +97,8 @@ const $listContentContainer: ThemedStyle<ContentStyle> = ({ spacing }) => ({
   paddingBottom: spacing.lg,
 })
 
-const $welcomeHeading: ThemedStyle<TextStyle> = ({ spacing }) => ({
-  marginBottom: spacing.md,
+const $linkToSecondPage: ThemedStyle<TextStyle> = ({ colors, spacing }) => ({
+  color: colors.tint,
+  marginBottom: spacing.lg,
+  alignSelf: isRTL ? "flex-start" : "flex-end",
 })
