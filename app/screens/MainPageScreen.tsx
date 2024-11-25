@@ -62,6 +62,7 @@ export const MainPageScreen: FC<MainPageScreenProps> = observer(function MainPag
         renderItem={({ item }) => (
           <Card
             heading={item.name}
+            id={"user" + item.id}
             content={item.name + " " + item.lastname + "  Age: " + item.age}
             style={
               // Apply styles according to the age

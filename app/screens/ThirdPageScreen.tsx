@@ -1,39 +1,24 @@
+/* eslint-disable react-native/no-color-literals */
+/* eslint-disable react-native/no-inline-styles */
 import { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { TextStyle, View, ViewStyle } from "react-native"
 import { AppStackScreenProps } from "@/navigators"
-import { Button, Card, Screen, Text, TextField } from "@/components"
+import { Button, Screen, Text, TextField } from "@/components"
 import { ThemedStyle } from "@/theme"
 import { useAppTheme } from "@/utils/useAppTheme"
 import { useStores } from "@/models"
-// import { LineChart } from "react-native-chart-kit"
-// import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "@/models"
 
 interface ThirdPageScreenProps extends AppStackScreenProps<"ThirdPage"> {}
 
 export const ThirdPageScreen: FC<ThirdPageScreenProps> = observer(function ThirdPageScreen(_props) {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
-
   // Pull in navigation via hook
   // const navigation = useNavigation()
   const { themed } = useAppTheme()
   const { navigation } = _props
   const { formStore } = useStores()
-  // const data = {
-  //   labels: ["January", "February", "March", "April", "May", "June"],
-  //   datasets: [
-  //     {
-  //       data: [20, 45, 28, 80, 99, 43],
-  //       color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-  //       strokeWidth: 2, // optional
-  //     },
-  //   ],
-  //   legend: ["Rainy Days"], // optional
-  // }
-
-  // const screenWidth = Dimensions.get("window").width
 
   return (
     <Screen style={$root} preset="scroll" safeAreaEdges={["top", "left"]}>
@@ -50,14 +35,17 @@ export const ThirdPageScreen: FC<ThirdPageScreenProps> = observer(function Third
             onPress={() => navigation.push("MainPage")}
           />
         </View>
-        {/* <LineChart data={data} width={screenWidth} height={220} /> */}
+
         <Text preset="subheading" style={themed($subHeading)} text="History:" />
-        <Card
-          style={$card}
-          heading={formStore.getName}
-          headingStyle={themed($cardContent)}
-          RightComponent={<Text style={themed($cardPoints)} text={formStore.getPoints}></Text>}
-        ></Card>
+        <View style={$card}>
+          <View style={{ flex: 2, backgroundColor: "grey" }}>
+            <Text preset="subheading" style={themed($subHeading)} text={formStore.getName} />
+          </View>
+          <View style={{ flex: 1, backgroundColor: "black", alignSelf: "center" }}>
+            <Text style={themed($cardPoints)} text={formStore.getPoints}></Text>
+            <Text preset="formHelper" style={{ color: "white" }} text="Totol Points"></Text>
+          </View>
+        </View>
         <View style={$form}>
           <TextField
             label="Points"
@@ -94,6 +82,10 @@ const $form: ViewStyle = {
   width: "40%",
   alignSelf: "center",
 }
+
+// const $chart: ViewStyle = {
+//   backgroundColor: "black",
+// }
 
 const $textField: ViewStyle = {
   backgroundColor: "white",
@@ -134,11 +126,12 @@ const $card: ViewStyle = {
   borderRadius: 30,
   borderColor: "#34373b",
   marginBottom: 20,
+  flexDirection: "row",
 }
 
-const $cardContent: ThemedStyle<TextStyle> = () => ({
-  color: "white",
-})
+// const $cardContent: ThemedStyle<TextStyle> = () => ({
+//   color: "white",
+// })
 
 // const $cardRightComponent: ViewStyle = {
 //   height: 100,
@@ -149,11 +142,11 @@ const $cardPoints: ThemedStyle<TextStyle> = () => ({
   color: "white",
   alignSelf: "center",
   paddingRight: 30,
-  backgroundColor: "black",
 })
 
 const $subHeading: ThemedStyle<TextStyle> = () => ({
   color: "white",
   textDecorationLine: "underline",
   marginBottom: 20,
+  padding: 20,
 })
