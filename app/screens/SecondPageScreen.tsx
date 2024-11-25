@@ -53,7 +53,7 @@ export const SecondPageScreen: FC<SecondPageScreenProps> = observer(
           <Text
             style={themed($linkToMainPage)}
             text="Go to main page"
-            onPress={() => navigation.pop()}
+            onPress={() => navigation.push("MainPage")}
           />
           <Text
             style={themed($linkToThirdPage)}
