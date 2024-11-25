@@ -34,6 +34,18 @@ export interface ApiFeedResponse {
   items: EpisodeItem[]
 }
 
+export interface ApiUserResponse {
+  id: string
+  date: string
+  location: string
+  user: {
+    name: string
+    lastname: string
+    age: number
+    fee: number
+  }
+}
+
 /**
  * The options used to configure apisauce.
  */
